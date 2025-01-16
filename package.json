@@ -1,0 +1,13 @@
+{
+    "name": "zapier-proxy",
+    "version": "1.0.0",
+    "description": "Proxy para enviar data a zapier",
+    "main": "api/proxy.js",
+    "scripts": {
+        "start": "vercel dev"
+    },
+    "dependencies": {
+        "axios": "^1.4.0",
+        "dotenv": "^16.3.1"
+    }
+}
