@@ -2,7 +2,7 @@
     "name": "zapier-proxy",
     "version": "1.0.0",
     "description": "Proxy para enviar data a zapier",
-    "main": "index.js",
+    "main": "api/proxy.js",
     "scripts": {
         "start": "vercel dev"
     },
