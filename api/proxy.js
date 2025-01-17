@@ -1,6 +1,6 @@
 require('dotenv').config();
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const zappierFormCotizaURL = process.env.ZAPIER_WEBHOOK_FORMCOTIZA_URL;
+// const zappierFormCotizaURL = process.env.ZAPIER_WEBHOOK_FORMCOTIZA_URL;
 
 module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,11 +13,17 @@ module.exports = async (req, res) => {
 
     if (req.method === 'POST') {
         try {
-            if (!zappierFormCotizaURL) {
+            let zapierURL = process.env.ZAPIER_WEBHOOK_DIST_ACEITE_URL;
+
+            if(req.body.cual_medio_ === 'formCotiza'){
+                zapierURL = process.env.ZAPIER_WEBHOOK_FORMCOTIZA_URL;
+            }
+
+            if (!zapierURL) {
                 return res.status(500).json({ error: 'URL not found' });
             }
 
-            const zapierResponse = await fetch(zappierFormCotizaURL, {
+            const zapierResponse = await fetch(zapierURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,8 +40,6 @@ module.exports = async (req, res) => {
             console.log(responseData);
             res.status(200).json({
                 message: 'Datos procesados con éxito',
-                // access_token,
-                // instance_url,
                 request_data: req.body
             });
         } catch (error) {
