@@ -23,6 +23,9 @@ module.exports = async (req, res) => {
                 return res.status(500).json({ error: 'URL not found' });
             }
 
+            console.log("Link: ", zapierURL);
+            console.log('Req body', req.body);
+
             const zapierResponse = await fetch(zapierURL, {
                 method: 'POST',
                 headers: {
